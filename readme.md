@@ -1,8 +1,8 @@
+## 预览
+[预览地址（未完工）](http://193.112.43.236:8080/)
 ## 表结构
 
-[TOC]
-
-###1. 酒店相关
+### 1. 酒店相关
 
 ```mysql
 mysql> desc t_hotel_standard;
@@ -66,7 +66,7 @@ mysql> select * from web_list;
 +----+--------------+
 ```
 
-###3. 评论相关
+### 3. 评论相关
 
 ```mysql
 mysql> desc hotel_comment;
@@ -104,7 +104,7 @@ mysql> desc hotel_score;
 +--------------+-------------+------+-----+---------+----------------+
 ```
 
-###4. 区域位置
+### 4. 区域位置
 
 ```mysql
 mysql> desc t_area;
