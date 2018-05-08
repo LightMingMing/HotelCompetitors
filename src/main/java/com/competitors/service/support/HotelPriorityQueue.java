@@ -1,7 +1,6 @@
 package com.competitors.service.support;
 
 import com.competitors.entity.HotelStandard;
-import com.competitors.service.support.HotelComparator;
 
 import java.util.ArrayList;
 import java.util.Collection;

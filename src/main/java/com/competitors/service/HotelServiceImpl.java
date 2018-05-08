@@ -140,9 +140,10 @@ public class HotelServiceImpl implements HotelService, InitializingBean{
             phoneList = commentRepository.getHotelPhoneListInCommentRange(1000, 2000);
         } else if (commentNumber < 3000){ // 28
             phoneList = commentRepository.getHotelPhoneListInCommentRange(2000, 3000);
-        } else { //
+        } else { // 6
             phoneList = commentRepository.getHotelPhoneListInCommentRange(3000, 100000);
         }
+        phoneList.remove(phone); // 过滤原酒店
         logger.info("phoneList size:{}", phoneList.size());
         hotelList = hotelRepository.listByPhones(phoneList);
         // logger.info("竞争对手个数：{}", hotelList.size());
