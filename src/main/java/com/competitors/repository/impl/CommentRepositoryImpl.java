@@ -42,7 +42,7 @@ public class CommentRepositoryImpl extends ReadRepositoryImpl<Comment> implement
 
     @Override
     public List<String> getHotelPhoneListInCommentRange(int min, int max) {
-        String sql = "select phone from (select phone, count(phone) as comment_number from " + getTableName() + " group by phone) as t where t.comment_number >= ? and t.comment_number <= ?";
+        String sql = "select phone from (select phone, count(phone) as comment_number from " + getTableName() + " group by phone) as t where t.comment_number >= ? and t.comment_number < ?";
         return template.queryForList(sql, new Object[]{min, max}, String.class);
     }
 }
