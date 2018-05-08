@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Properties>
+        <Property name="root.logger.level">INFO</Property>
+        <Property name="console.logger.level">DEBUG</Property>
+    </Properties>
+    <Appenders>
+        <Console name="CONSOLE" target="SYSTEM_OUT">
+            <ThresholdFilter level="${console.logger.level}"/>
+            <PatternLayout pattern="%d %c %p %m%n"/>
+        </Console>
+    </Appenders>
+
+    <Loggers>
+        <Root level="${root.logger.level}">
+            <AppenderRef ref="CONSOLE"/>
+        </Root>
+    </Loggers>
+</Configuration>
