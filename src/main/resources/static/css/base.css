@@ -1,0 +1,156 @@
+body {
+    margin-top: 5em;
+}
+
+/****************************************  表格 ****************************************/
+.table {
+    margin-top: 10px;
+}
+.table thead tr th{
+    vertical-align : middle;
+    text-align : center;
+}
+.table tbody tr td{
+    vertical-align : middle;
+    text-align : center;
+}
+
+.table thead tr th.left{
+    text-align: left;
+}
+.table tbody tr td.left{
+    text-align: left;
+}
+
+.table tbody tr td.comment {
+    font-size: 1.2em;
+}
+
+.table tr td.innerTable{
+    padding: 0;
+}
+
+.innerTable table {
+    background-color: inherit !important;
+    margin: 0;
+    font-size: 1em;
+    border:none;
+}
+.innerTable table tr td{
+    padding: 8px 10px;
+}
+
+.innerTable table tbody tr:first-child td{
+    border-top: 0;
+}
+.innerTable table tbody tr td:first-child{
+    border-left: 0;
+}
+
+.innerTable table tbody:last-child tr td{
+    border-bottom: 0;
+}
+.innerTable table tbody tr:last-child td{
+    border-right: 0;
+}
+
+.sentiment-1 {
+    color: red;
+    font-style: italic;
+    font-size: 1.1em;
+}
+.sentiment1 {
+    color: green;
+    font-style: italic;
+    font-size: 1.1em;
+}
+.innerTable .sentiment-1 {
+    font-size: 1em;
+}
+.innerTable .sentiment1 {
+    font-size: 1em;
+}
+
+/*****************************************************分页****************************************/
+
+.pageNo .input-append:hover {
+    background-color: white !important;
+}
+.pageNo .input-append {
+    padding: 0 4px !important;
+    border-width: 0 !important;
+    margin:0;
+}
+
+.pageNo .input-append .inputPage {
+    min-width: 40px;
+    max-width: 60px;
+    height: 34px;
+    padding: 5px 8px 3px 0;
+    text-align: right;
+    border: 1px solid #ddd;
+
+}
+.pageNo .input-append .totalPage {
+    min-width: 45px;
+    height: 34px;
+    text-align: center;
+    padding: 7px 5px 3px 5px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    color: black;
+}
+.pageSize{
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    width: 60px;
+    height: 34px;
+    line-height: 20px;
+    padding-left: 5px;
+    margin: 0;
+}
+
+/**************************************************Form 表单***************************************/
+form.query {
+    margin: 0 0 20px;
+}
+form.query .form-row {
+    margin:0 0;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+}
+form.query .form-row .span{
+    margin:0 0 10px;
+}
+form.query .form-row:first-child {
+    padding: 10px 0 0;
+    border-top: 1px solid #ddd;
+    border-radius: 5px 5px 0 0;
+
+}
+form.query .form-row:last-child {
+    border-top: 1px solid #ddd;
+}
+form.query .fold {
+    margin: 0 0 -25px;
+    border-top: 1px solid #ddd;
+}
+form.query .fold span {
+    display: inline-block;
+    height: 35px;
+    line-height: 35px;
+    margin-top: -1px;
+    padding: 0 40px;
+    color: #ddd;
+    border: 1px solid #ddd;
+    border-top-color: #fff;
+    border-radius: 0 0 4px 4px;
+    cursor: pointer;
+}
+form.query .form-actions{
+    text-align: center;
+}
+form.query .search,.reset {
+    padding: 5px 15px;
+    border-radius: 2px;
+}
