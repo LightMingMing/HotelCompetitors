@@ -1,6 +1,15 @@
 body {
     margin-top: 5em;
 }
+.navbar-form button {
+    padding: 5px 15px;
+    background-color:white;
+    border-color: #ccc;
+    color: #333;
+}
+.navbar-form button:hover {
+    background-color: #ddd;
+}
 
 /****************************************  表格 ****************************************/
 .table {
