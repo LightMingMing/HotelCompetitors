@@ -3,8 +3,10 @@ import com.competitors.entity.HotelStandard;
 import com.competitors.repository.HotelRepository;
 import com.khazix.core.repository.ReadRepositoryImpl;
 import com.khazix.core.support.Coordinate;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Repository("hotelRepository")
@@ -56,5 +58,12 @@ public class HotelRepositoryImpl extends ReadRepositoryImpl<HotelStandard> imple
     public List<HotelStandard> list(int startIndex, int maxResults) {
         String where = " where phone >= (select phone from " + getTableName() + " order by phone limit ?, 1) limit ?";
         return template.query(getQuerySQL(where), new Object[]{startIndex, maxResults}, getRowMapper());
+    }
+
+    @Override
+    public List<HotelStandard> listByPhones(List<String> phoneList) {
+        NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(template);
+        String where = " where phone in (:phoneList)";
+        return namedParameterJdbcTemplate.query(getQuerySQL(where), Collections.singletonMap("phoneList", phoneList), getRowMapper());
     }
 }

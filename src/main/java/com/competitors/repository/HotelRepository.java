@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface HotelRepository extends ReadRepository<HotelStandard> {
     List<HotelStandard> listByDist(HotelStandard source, Integer distance);
-    
+    List<HotelStandard> listByPhones(List<String> phoneList);
 }
