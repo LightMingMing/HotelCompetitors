@@ -1,6 +1,7 @@
 package com.competitors.repository.impl;
 
 import com.competitors.domain.PlatformAverageScore;
+import com.competitors.domain.PlatformCommentNumber;
 import com.competitors.entity.Comment;
 import com.competitors.repository.CommentRepository;
 import com.khazix.core.repository.ReadRepositoryImpl;
@@ -19,6 +20,12 @@ public class CommentRepositoryImpl extends ReadRepositoryImpl<Comment> implement
         p.setAvgScore(rst.getDouble("avgScore"));
         return p;
     };
+/*    private static RowMapper<PlatformCommentNumber> platformCommentNumberRowMapper = (rst, rowNum)-> {
+        PlatformCommentNumber p = new PlatformCommentNumber();
+        p.setTarget(rst.getInt("webId"));
+        p.setNumber(rst.getInt("number"));
+        return p;
+    };*/
 
     @Override
     public List<Comment> list(int startIndex, int maxResults) {
@@ -45,4 +52,21 @@ public class CommentRepositoryImpl extends ReadRepositoryImpl<Comment> implement
         String sql = "select phone from (select phone, count(phone) as comment_number from " + getTableName() + " group by phone) as t where t.comment_number >= ? and t.comment_number < ?";
         return template.queryForList(sql, new Object[]{min, max}, String.class);
     }
+
+/*    @Override
+    public Integer getCommentNumber(String phone, Integer webId) {
+        String sql = "select count(*) from " + getTableName() + " where phone=? ";
+        Object[] params = new Object[]{phone};
+        if (webId != null && webId > 0) {
+            sql += " and webid = ?";
+            params = new Object[] {phone, webId};
+        }
+        return template.queryForObject(sql, params, Integer.class);
+    }
+
+    @Override
+    public List<PlatformCommentNumber> getCommentNumberForEachPlatform(String phone) {
+        String sql = "select webid, count(*) from " + getTableName() + " where phone= ? group by webid";
+        return template.query(sql, new Object[]{phone}, platformCommentNumberRowMapper);
+    }*/
 }

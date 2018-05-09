@@ -1,5 +1,6 @@
 package com.competitors.repository.impl;
 
+import com.competitors.domain.PlatformCommentNumber;
 import com.competitors.domain.PlatformSentimentDistribution;
 import com.competitors.domain.SentimentDistribution;
 import com.competitors.entity.DayAnalysis;
@@ -13,6 +14,13 @@ import java.util.Date;
 import java.util.List;
 @Repository("dayAnalysisRepository")
 public class DayAnalysisRepositoryImpl extends ReadRepositoryImpl<DayAnalysis> implements DayAnalysisRepository {
+
+    private static RowMapper<PlatformCommentNumber> platformCommentNumberRowMapper = (rst, rowNum)-> {
+        PlatformCommentNumber p = new PlatformCommentNumber();
+        p.setTarget(rst.getInt("webId"));
+        p.setNumber(rst.getInt("number"));
+        return p;
+    };
 
     private static RowMapper<SentimentDistribution> sentimentDistributionMapper = (rst, rowNum) -> {
         SentimentDistribution sentimentDistribution = new SentimentDistribution();
@@ -40,12 +48,18 @@ public class DayAnalysisRepositoryImpl extends ReadRepositoryImpl<DayAnalysis> i
     };
 
     private int getItemSum(String columnName, String phone, Date beginDate, Date endDate, Integer webId) {
-        String format = "select sum(%s) from " + getTableName() + " where phone=? and analysis_date>=? and analysis_date<=?";
+        String format = "select sum(%s) from " + getTableName() + " where phone=?";
         List<Object> params = new ArrayList<>();
         String sql = String.format(format, columnName);
         params.add(phone);
-        params.add(beginDate);
-        params.add(endDate);
+        if (beginDate != null) {
+            params.add(beginDate);
+            sql += " and analysis_date>=? ";
+        }
+        if (endDate != null) {
+            params.add(endDate);
+            sql += "and analysis_date<=? ";
+        }
 
         if (webId != null && webId > 0) {
             sql += " and webid = ?";
@@ -77,6 +91,24 @@ public class DayAnalysisRepositoryImpl extends ReadRepositoryImpl<DayAnalysis> i
     @Override
     public int getCommentSum(String phone, Date beginDate, Date endDate, Integer webId) {
         return getItemSum("comment_number", phone, beginDate, endDate, webId);
+    }
+
+    @Override
+    public List<PlatformCommentNumber> getCommentNumberForEachPlatform(String phone, Date beginDate, Date endDate) {
+        String sql = "select webid, sum(comment_number) as number from " + getTableName() + " where phone=?";
+        List<Object> params = new ArrayList<>();
+        params.add(phone);
+        if (beginDate != null) {
+            params.add(beginDate);
+            sql += " and analysis_date>=? ";
+        }
+        if (endDate != null) {
+            params.add(endDate);
+            sql += "and analysis_date<=? ";
+        }
+        sql += " group by webid";
+        //  group by webid
+        return template.query(sql, params.toArray(), platformCommentNumberRowMapper);
     }
 
     @Override

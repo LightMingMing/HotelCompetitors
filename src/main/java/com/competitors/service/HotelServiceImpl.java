@@ -1,9 +1,6 @@
 package com.competitors.service;
 
-import com.competitors.domain.PlatformAverageScore;
-import com.competitors.domain.PlatformSentimentDistribution;
-import com.competitors.domain.SentimentDistribution;
-import com.competitors.domain.TargetSentimentDistribution;
+import com.competitors.domain.*;
 import com.competitors.entity.HotelStandard;
 import com.competitors.repository.CommentRepository;
 import com.competitors.repository.DayAnalysisRepository;
@@ -89,6 +86,11 @@ public class HotelServiceImpl implements HotelService, InitializingBean{
     @Override
     public int getCommentSum(String phone, Date beginDate, Date endDate, Integer webId) {
         return dayAnalysisRepository.getCommentSum(phone, beginDate, endDate, webId);
+    }
+
+    @Override
+    public List<PlatformCommentNumber> getCommentNumberForEachPlatform(String phone, Date beginDate, Date endDate) {
+        return dayAnalysisRepository.getCommentNumberForEachPlatform(phone, beginDate, endDate);
     }
 
     @Override

@@ -1,9 +1,6 @@
 package com.competitors.service;
 
-import com.competitors.domain.PlatformAverageScore;
-import com.competitors.domain.PlatformSentimentDistribution;
-import com.competitors.domain.SentimentDistribution;
-import com.competitors.domain.TargetSentimentDistribution;
+import com.competitors.domain.*;
 import com.competitors.entity.HotelStandard;
 
 import java.util.Date;
@@ -28,6 +25,17 @@ public interface HotelService {
      * @see com.competitors.repository.DayAnalysisRepository
      */
     int getCommentSum(String phone, Date beginDate, Date endDate, Integer webId);
+
+    default int getCommentSum(String phone) {
+        return getCommentSum(phone, null, null, null);
+    }
+
+    List<PlatformCommentNumber> getCommentNumberForEachPlatform(String phone, Date beginDate, Date endDate);
+
+    default List<PlatformCommentNumber> getCommentNumberForEachPlatform(String phone) {
+        return getCommentNumberForEachPlatform(phone, null, null);
+    }
+
     // 表扬
     int getPraiseSum(String phone, Date beginDate, Date endDate, Integer webId);
     // 批评
@@ -61,5 +69,4 @@ public interface HotelService {
      * @return 酒店竞争对手集合
      */
     List<HotelStandard> getHotelCompetitorList(String phone);
-
 }

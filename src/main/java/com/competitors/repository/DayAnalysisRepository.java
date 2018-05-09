@@ -1,5 +1,6 @@
 package com.competitors.repository;
 
+import com.competitors.domain.PlatformCommentNumber;
 import com.competitors.domain.PlatformSentimentDistribution;
 import com.competitors.domain.SentimentDistribution;
 import com.competitors.entity.DayAnalysis;
@@ -14,6 +15,7 @@ public interface DayAnalysisRepository extends ReadRepository<DayAnalysis>{
     int getCriticismSum(String phone, Date beginDate, Date endDate, Integer webId);
     int getOpinionSum(String phone, Date beginDate, Date endDate, Integer webId);
     int getNeutralSum(String phone, Date beginDate, Date endDate, Integer webId);
+    List<PlatformCommentNumber> getCommentNumberForEachPlatform(String phone, Date beginDate, Date endDate);
 
     SentimentDistribution getSentimentDistribution(String phone, Date beginDate, Date endDate);
     PlatformSentimentDistribution getPlatformSentimentDistribution(String phone, Date beginDate, Date endDate, Integer webId);

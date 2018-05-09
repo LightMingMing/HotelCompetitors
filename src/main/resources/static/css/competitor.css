@@ -1,0 +1,129 @@
+.map_side {
+    width: 260px;
+    position: absolute;
+    top: 50px;
+    right: 0;
+    border-left: 1px solid #e5e5e5;
+    background-color: #fff;
+}
+.side_inner {
+    border-left: 1px solid #ccc;
+}
+.side_source {
+    padding: 15px 0 15px 20px;
+}
+.side_source .source_name{
+    width: 248px;
+    height: 18px;
+    overflow: hidden;
+    line-height: 18px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: #06c;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+.side_list {
+    overflow-y: auto;
+    zoom: 1;
+    position: relative;
+}
+.side_list_box {
+    padding: 0 10px;
+}
+.side_list_item {
+    border-bottom: 1px dotted #ccc;
+    position: relative;
+    cursor: pointer;
+}
+.list_item_cont {
+    padding: 6px 0 6px 40px;
+    position: relative;
+    zoom: 1;
+}
+.icon_num{
+    background-position: 0 -284px;
+    left: 16px;
+}
+.side_list_item .icon_num {
+    display: inline-block;
+    width: 24px;
+    height: 28px;
+    line-height: 24px;
+    text-align: center;
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    background: url(//pic.c-ctrip.com/hotels121118/un_map_spot.png) no-repeat 0 -254px;
+    position: absolute;
+    top: 10px;
+    left: 6px;
+}
+.side_list_item .item_title {
+    width: 204px;
+    height: 16px;
+    overflow: hidden;
+    line-height: 18px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: #06c;
+    margin-bottom: 8px;
+    font-size: 12px;
+    font-weight: bold;
+}
+.side_list_item .item_address {
+    width: 184px;
+    height: 16px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 10px;
+    margin-bottom: 5px;
+}
+.side_list_item .item_comment_number {
+    font-weight: bold;
+    color: #333;
+}
+.side_list_item .item_c {
+    color: #666;
+    font-size: 10px;
+    white-space: nowrap;
+    margin-bottom: 5px;
+}
+
+/*****************************************************/
+.compare-container {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin:-20px auto auto auto;
+}
+
+.compare-inner {
+    padding: 10px 0;
+}
+.compare-inner a {
+    font-weight: bold;
+    margin-right: 30px;
+}
+.compare-inner .compare-item {
+    padding: 5px 8px;
+    background-color:#06c;
+    border-color: #06c;
+    color: white;
+}
+
+.compare-inner .compare-item-1 {
+    padding: 5px 8px;
+    background-color:#5cb85c;
+    border-color: #4cae4c;
+    color: white;
+}
+.compare-inner .compare-item-2 {
+    padding: 5px 8px;
+    background-color:#d9534f;
+    border-color: #d43f3a;
+    color: white;
+}
+
