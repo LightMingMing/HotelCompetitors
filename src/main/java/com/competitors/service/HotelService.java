@@ -51,6 +51,10 @@ public interface HotelService {
      */
     SentimentDistribution getSentimentDistribution(String phone, Date beginDate, Date endDate);
 
+    default SentimentDistribution getSentimentDistribution(String phone) {
+        return getSentimentDistribution(phone, null, null);
+    }
+
     /**
      * 各平台评论情感分布
      * @see com.competitors.repository.DayAnalysisRepository

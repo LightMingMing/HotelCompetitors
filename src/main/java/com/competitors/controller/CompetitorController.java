@@ -1,7 +1,9 @@
 package com.competitors.controller;
 
 import com.competitors.domain.PlatformCommentNumber;
+import com.competitors.domain.SentimentDistribution;
 import com.competitors.entity.HotelStandard;
+import com.competitors.json.CommentSentimentStatisticsJ;
 import com.competitors.json.PlatformCommentStatisticsJ;
 import com.competitors.repository.CommentRepository;
 import com.competitors.repository.HotelRepository;
@@ -61,8 +63,24 @@ public class CompetitorController {
             if (left > 0)
                 name = name.substring(0, name.indexOf('('));
             List<PlatformCommentNumber> numberList = hotelService.getCommentNumberForEachPlatform(phone);
-            commentStatisticsJ.addHotelData(name, numberList);
+            commentStatisticsJ.addData(name, numberList);
         }
          return commentStatisticsJ.toJsonString();
+    }
+
+    @ResponseBody
+    @PostMapping(value = "/commentSentimentStatistics", produces = "application/json; charset=utf-8")
+    public String commentSentimentStatistics(@RequestBody List<String> phoneList, Model model) {
+        CommentSentimentStatisticsJ commentSentimentStatisticsJ = new CommentSentimentStatisticsJ(phoneList.size());
+        for (String phone : phoneList) {
+            HotelStandard hotel = hotelRepository.get("phone", phone);
+            String name = hotel.getName();
+            int left = name.indexOf('(');
+            if (left > 0)
+                name = name.substring(0, name.indexOf('('));
+            SentimentDistribution sentiment = hotelService.getSentimentDistribution(phone);
+            commentSentimentStatisticsJ.addData(name, sentiment);
+        }
+        return commentSentimentStatisticsJ.toJsonString();
     }
 }

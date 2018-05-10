@@ -104,7 +104,7 @@ public class DayAnalysisRepositoryImpl extends ReadRepositoryImpl<DayAnalysis> i
         }
         if (endDate != null) {
             params.add(endDate);
-            sql += "and analysis_date<=? ";
+            sql += " and analysis_date<=? ";
         }
         sql += " group by webid";
         //  group by webid
@@ -115,9 +115,18 @@ public class DayAnalysisRepositoryImpl extends ReadRepositoryImpl<DayAnalysis> i
     public SentimentDistribution getSentimentDistribution(String phone, Date beginDate, Date endDate) {
         String sql = "select sum(praise_number) praiseNumber, sum(criticism_number) criticismNumber, " +
                 "sum(neutral_number) neutralNumber,  sum(nocare_number) nocareNumber from " + getTableName() +
-                " where phone=? and analysis_date>=? and analysis_date<=?";
-        return template.queryForObject(sql, new Object[]{phone, beginDate, endDate}, sentimentDistributionMapper);
-
+                " where phone=?";
+        List<Object> params = new ArrayList<>();
+        params.add(phone);
+        if (beginDate != null) {
+            params.add(beginDate);
+            sql += " and analysis_date>=? ";
+        }
+        if (endDate != null) {
+            params.add(endDate);
+            sql += " and analysis_date<=? ";
+        }
+        return template.queryForObject(sql, params.toArray(), sentimentDistributionMapper);
     }
 
     @Override

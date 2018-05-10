@@ -2,6 +2,67 @@
 <html lang="zh-CN">
     <head>
         <@title "酒店列表"/>
+        <script>
+            $(document).ready(function() {
+                var provinceSelect = $("#province");
+                var citySelect = $("#city");
+                provinceSelect.append("<option value=''>选择省份</option>");
+                citySelect.append("<option value=''>选择城市</option>");
+
+                var provinceCode = "${(resultPage.entity.provinceCode)!""}";
+                var cityCode = "${(resultPage.entity.cityCode)!""}";
+
+                $.ajax({
+                    type: 'get',
+                    url: '/region',
+                    success: function (data) {
+                        // alert(JSON.stringify(data));
+                        for (var i = 0; i < data.length; i++) {
+                            if (provinceCode === data[i].code)
+                                provinceSelect.append("<option value=" + data[i].code + " selected>" + data[i].name + "</option>");
+                            else
+                                provinceSelect.append("<option value=" + data[i].code + ">" + data[i].name + "</option>");
+                        }
+                        if (provinceCode !== "")
+                            loadCity(provinceCode);
+                    },
+                    error: function (xhr) {
+                        alert(xhr.status + " " + xhr.statusText)
+                    }
+                });
+
+                provinceSelect.change(function () {
+                    citySelect.empty();
+                    citySelect.append("<option value=''>选择城市</option>");
+                    if (provinceSelect.val() !== "") {
+                        loadCity(provinceSelect.val());
+                    }
+                });
+
+
+                var loadCity = function (provinceCode) {
+                    $.ajax({
+                        type: 'get',
+                        url: '/region/' + provinceCode,
+                        success: function (data) {
+                            for (var i = 0; i < data.length; i++) {
+                                var code = data[i].code;
+                                var name = data[i].name;
+                                if (cityCode === code) {
+                                    citySelect.append("<option value=" + code + " selected>" + name + "</option>");
+                                } else {
+                                    citySelect.append("<option value=" + code + ">" + name + "</option>");
+                                }
+
+                            }
+                        },
+                        error: function (xhr) {
+                            alert(xhr.status + " " + xhr.statusText)
+                        }
+                    });
+                };
+            });
+        </script>
     </head>
 
     <body>

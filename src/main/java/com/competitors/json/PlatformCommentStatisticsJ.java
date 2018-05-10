@@ -26,7 +26,7 @@ public class PlatformCommentStatisticsJ {
         }
     }
 
-    public void addHotelData(String name, List<PlatformCommentNumber> numbers) {
+    public void addData(String name, List<PlatformCommentNumber> numbers) {
         int size = categorieList.size();
         categorieList.add(name);
         for (PlatformCommentNumber number : numbers) {

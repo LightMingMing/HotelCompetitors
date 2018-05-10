@@ -1,5 +1,5 @@
 .map_side {
-    width: 260px;
+    width: 280px;
     position: absolute;
     top: 50px;
     right: 0;
@@ -97,7 +97,7 @@
 .compare-container {
     padding-right: 15px;
     padding-left: 15px;
-    margin:-20px auto auto auto;
+    margin:20px auto auto auto;
 }
 
 .compare-inner {
@@ -126,4 +126,6 @@
     border-color: #d43f3a;
     color: white;
 }
+
+
 
