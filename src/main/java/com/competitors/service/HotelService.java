@@ -67,6 +67,10 @@ public interface HotelService {
      */
     List<TargetSentimentDistribution> getTargetSentimentDistributionList(String phone, Date beginDate, Date endDate);
 
+    default List<TargetSentimentDistribution> getTargetSentimentDistributionList(String phone) {
+        return getTargetSentimentDistributionList(phone, null, null);
+    }
+
     /**
      * 获取酒店竞争对手
      * @param phone 酒店电话

@@ -2,9 +2,7 @@ body {
     margin-top: 5em;
     font-family: Tahoma,Simsun,sans-serif;
 }
-.hidden {
-    display: none;
-}
+
 .navbar-form button {
     padding: 5px 15px;
     background-color:white;

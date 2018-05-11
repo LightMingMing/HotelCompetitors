@@ -24,7 +24,7 @@
             <div class="side_inner" style="height: 680px;">
                 <div class="side_source">
                     <p class="source_name">${source.name}</p>
-                    <p class="item_phone hidden">${source.phone}</p>
+                    <p class="item_phone hidden" id="source_phone">${source.phone}</p>
                 </div>
                 <div class="side_list" style="height: 650px;">
                     <div class="side_list_box">

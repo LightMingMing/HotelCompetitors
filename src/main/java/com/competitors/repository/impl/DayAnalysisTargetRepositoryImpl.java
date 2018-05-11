@@ -24,10 +24,21 @@ public class DayAnalysisTargetRepositoryImpl extends ReadRepositoryImpl<DayAnaly
     @Override
     public List<TargetSentimentDistribution> getTargetSentimentDistributionList(String phone, Date startDate, Date endDate) {
         String sql = "select score_target, score, sum(opinion_number) as number " +
-                "from analysis_day_target where phone=? and analysis_date>=? and analysis_date<=? " +
-                "GROUP BY score_target, score";
+                "from analysis_day_target where phone=? ";
         //
-        List<TargetSentiment> targetSentimentList = template.query(sql, new Object[]{phone, startDate, endDate}, targetSentimentRowMapper);
+        List<Object> params = new ArrayList<>(3);
+        params.add(phone);
+        if (startDate != null) {
+            params.add(startDate);
+            sql += " and analysis_date>=? ";
+        }
+        if (endDate != null) {
+            params.add(endDate);
+            sql += " and analysis_date<=? ";
+        }
+        sql += " group by score_target, score";
+
+        List<TargetSentiment> targetSentimentList = template.query(sql, params.toArray(), targetSentimentRowMapper);
         List<TargetSentimentDistribution> list = new ArrayList<>(7);
 
         for (int i = 0; i < 7; i++) {

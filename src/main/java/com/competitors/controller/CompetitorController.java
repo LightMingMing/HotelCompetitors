@@ -2,9 +2,11 @@ package com.competitors.controller;
 
 import com.competitors.domain.PlatformCommentNumber;
 import com.competitors.domain.SentimentDistribution;
+import com.competitors.domain.TargetSentimentDistribution;
 import com.competitors.entity.HotelStandard;
 import com.competitors.json.CommentSentimentStatisticsJ;
 import com.competitors.json.PlatformCommentStatisticsJ;
+import com.competitors.json.TargetSentimentStatisticsJ;
 import com.competitors.repository.CommentRepository;
 import com.competitors.repository.HotelRepository;
 import com.competitors.service.HotelService;
@@ -82,5 +84,17 @@ public class CompetitorController {
             commentSentimentStatisticsJ.addData(name, sentiment);
         }
         return commentSentimentStatisticsJ.toJsonString();
+    }
+
+    @ResponseBody
+    @PostMapping(value = "/targetSentimentStatistics", produces = "application/json; charset=utf-8")
+    public String targetSentimentStatics(String phone, Model model) {
+        HotelStandard hotel = hotelRepository.get("phone", phone);
+        if (hotel == null) return "";
+        List<TargetSentimentDistribution> targetSentimentDistributionList = hotelService.getTargetSentimentDistributionList(phone);
+        TargetSentimentStatisticsJ targetSentimentStatisticsJ = new TargetSentimentStatisticsJ();
+        targetSentimentStatisticsJ.addData(targetSentimentDistributionList);
+
+        return targetSentimentStatisticsJ.toJsonString();
     }
 }
