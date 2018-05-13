@@ -10,7 +10,7 @@ import java.util.List;
 public class TargetSentimentStatisticsJ {
     // target = 1 - 6 0
     private List<String> categorieList = Arrays.asList("性价比", "地理位置", "服务质量", "环境卫生", "设备设施", "餐饮服务", "其它");
-    private String[] serieNameArray = new String[] {"表扬", "批评", "中评"};
+    private String[] serieNameArray = new String[] {"表扬", "中评", "批评"};
     private int[][] serieArray = new int[3][];
 
     public TargetSentimentStatisticsJ() {
@@ -21,8 +21,8 @@ public class TargetSentimentStatisticsJ {
         for (TargetSentimentDistribution distribution : data) {
             int index = index(distribution.getAnalysisTarget());
             serieArray[0][index] = distribution.getPraiseNumber();
-            serieArray[1][index] = distribution.getCriticismNumber();
-            serieArray[2][index] = distribution.getNeutralNumber();
+            serieArray[1][index] = distribution.getNeutralNumber();
+            serieArray[2][index] = distribution.getCriticismNumber();
         }
     }
 

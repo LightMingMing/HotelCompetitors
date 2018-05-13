@@ -9,6 +9,7 @@ import java.util.List;
 
 public class CommentSentimentStatisticsJ {
     private List<String> categories;
+    private boolean other = false;
     private int[][] data = new int[4][];
 
     public CommentSentimentStatisticsJ(int size) {
@@ -23,7 +24,9 @@ public class CommentSentimentStatisticsJ {
         JSONObject n1 = new JSONObject(); n1.put("name", "好评"); n1.put("data", data[0]); series.put(n1);
         JSONObject n2 = new JSONObject(); n2.put("name", "中评"); n2.put("data", data[1]); series.put(n2);
         JSONObject n3 = new JSONObject(); n3.put("name", "差评"); n3.put("data", data[2]); series.put(n3);
-        JSONObject n4 = new JSONObject(); n4.put("name", "其它"); n4.put("data", data[3]); series.put(n4);
+        if (other) {
+            JSONObject n4 = new JSONObject(); n4.put("name", "其它"); n4.put("data", data[3]); series.put(n4);
+        }
 
         JSONObject result = new JSONObject();
         result.put("categories", categories);

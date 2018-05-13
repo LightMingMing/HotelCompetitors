@@ -17,6 +17,8 @@ $(document).ready(function(){
         subtitle: {
             text: ''
         },
+        colors: ['#50B432', '#058DC7', '#ED561B', '#DDDF00',
+            '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4'],
         xAxis: {
             categories: [],
             crosshair: true
@@ -76,6 +78,8 @@ $(document).ready(function(){
         xAxis: {
             categories: []
         },
+        colors: ['#50B432', '#8085e9', '#ED561B', '#434348',
+            '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4'],
         yAxis: {
             min: 0,
             title: {
@@ -127,6 +131,8 @@ $(document).ready(function(){
         subtitle: {
             text: ''
         },
+        colors: ['#50B432', '#8085e9', '#ED561B', '#434348',
+            '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4'],
         xAxis: {
             categories: [],
             crosshair: true
@@ -156,19 +162,27 @@ $(document).ready(function(){
 
     var phoneEle = $("#source_phone");
     var phone = phoneEle[0].innerText;
-    // alert(JSON.stringify(phone));
-    $.ajax({
-        type:'post',
-        data:'phone=' + phone,
-        url: '/competitor/targetSentimentStatistics',
-        success: function(data) {
-            targetSentimentChart.series = data.series;
-            targetSentimentChart.xAxis.categories = data.categories;
-            Highcharts.chart('container',targetSentimentChart);
-        },
-        error: function(xhr) {
-            alert(xhr.status + " " + xhr.statusText)
-        }
+
+    var ajaxLoadTargetSentimentStatistic = function (phone) {
+        $.ajax({
+            type:'post',
+            data:'phone=' + phone,
+            url: '/competitor/targetSentimentStatistics',
+            success: function(data) {
+                targetSentimentChart.series = data.series;
+                targetSentimentChart.xAxis.categories = data.categories;
+                Highcharts.chart('container',targetSentimentChart);
+                currPhone = phone;
+            },
+            error: function(xhr) {
+                alert(xhr.status + " " + xhr.statusText)
+            }
+        });
+    };
+
+    $("a.name").click(function() {
+        // alert(this.title);
+        ajaxLoadTargetSentimentStatistic(this.title);
     });
 
 
