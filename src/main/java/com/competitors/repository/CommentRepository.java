@@ -12,6 +12,6 @@ public interface CommentRepository extends ReadRepository<Comment> {
     PlatformAverageScore getPlatformAverageScore(String phone, Date beginDate, Date endDate, Integer webId);
     List<PlatformAverageScore> getPlatformAverageScoreList(String phone, Date beginDate, Date endDate);
     List<String> getHotelPhoneListInCommentRange(int min, int max);
-/*    Integer getCommentNumber(String phone, Integer webId);
-    List<PlatformCommentNumber> getCommentNumberForEachPlatform(String phone);*/
+    Integer getCommentNumber(String phone, Integer webId);
+    /* List<PlatformCommentNumber> getCommentNumberForEachPlatform(String phone);*/
 }

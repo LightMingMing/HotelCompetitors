@@ -1,10 +1,65 @@
 $(document).ready(function(){
+    var phoneEle = $("#source_phone");
+    var phone = phoneEle[0].innerText;
 
-    var phoneList = [];
-    var itemPhones = $("p.item_phone");
-    for (var i = 0; i < itemPhones.length; i ++) {
-        // alert(itemPhones[i].innerText);
-        phoneList.push(itemPhones[i].innerText)
+    getHotelCompetitors(1);
+
+    function getHotelCompetitors(page) {
+        $.ajax({
+            type:'get',
+            url:'/competitor/' + phone + '/'+ page,
+            success: function(data) {
+                var compatitors = data.competitors;
+                var innerDiv = '';
+                for (var i = 0; i < compatitors.length; i ++) {
+                    innerDiv +=
+                        '<div class="side_list_item"><div class="list_item_cont">' +
+                            '<span class="icon_num">' + (compatitors[i].index + 1) + '</span>' +
+                            '<p class="item_title"><a class="name" title="' + compatitors[i].phone + '">' + compatitors[i].name + '</a>' +
+                            '<p class="hidden item_phone">' + compatitors[i].phone + '</p>' +
+                            '<p class="item_address">' + compatitors[i].address + '</p>' +
+                            '<p class="item_c"><span class="item_comment_number">' + compatitors[i].commentNumber + '</span>条点评</p>'
+                        + '</div></div>';
+                }
+                $("#hotel_list").html(innerDiv);
+                var pageHtml = '';
+                if (data.currPage === 1) {
+                    pageHtml ='<li class="disabled"><a>上一页</a></li>';
+                } else {
+                    pageHtml ='<li><a name="'+ (data.currPage-1)+ '">上一页</a></li>';
+                }
+
+                if (data.currPage === data.totalPage) {
+                    pageHtml +='<li class="disabled"><a>下一页</a></li>';
+                } else {
+                    pageHtml +='<li><a name="' + (data.currPage+1) + '">下一页</a></li>';
+                }
+                $("#simple_pager").html(pageHtml);
+
+                $("a.name").click(function() {
+                    // alert(this.title);
+                    ajaxLoadTargetSentimentStatistic(this.title);
+                });
+
+                $(".pager a").click(function() {
+                    getHotelCompetitors(this.name);
+                });
+
+            },
+            error: function(xhr) {
+                alert(xhr.status + " " + xhr.statusText)
+            }
+        });
+    }
+
+    function getPhoneList() {
+        var phoneList = [];
+        var itemPhones = $("p.item_phone");
+        for (var i = 0; i < itemPhones.length; i ++) {
+            // alert(itemPhones[i].innerText);
+            phoneList.push(itemPhones[i].innerText)
+        }
+        return phoneList
     }
 
     var platformCommentChart = {
@@ -47,10 +102,10 @@ $(document).ready(function(){
     };
 
     $("#platformComment").click(function() {
-        if (platformCommentChart.series.length === 0) {
+        // if (platformCommentChart.series.length === 0) {
             $.ajax({
                 type:'post',
-                data:JSON.stringify(phoneList),
+                data:JSON.stringify(getPhoneList()),
                 url: '/competitor/platformCommentStatistics',
                 contentType: 'application/json',
                 success: function(data) {
@@ -63,9 +118,10 @@ $(document).ready(function(){
                 }
             });
 
-        } else {
-            Highcharts.chart('container', platformCommentChart)
-        }
+
+        // } else {
+        //    Highcharts.chart('container', platformCommentChart)
+        // }
     });
 
     var commentSentimentChart =  {
@@ -101,10 +157,10 @@ $(document).ready(function(){
     };
 
     $("#commentSentiment").click(function() {
-        if (commentSentimentChart.series.length === 0) {
+        // if (commentSentimentChart.series.length === 0) {
             $.ajax({
                 type:'post',
-                data:JSON.stringify(phoneList),
+                data:JSON.stringify(getPhoneList()),
                 url: '/competitor/commentSentimentStatistics',
                 contentType: 'application/json',
                 success: function(data) {
@@ -116,9 +172,9 @@ $(document).ready(function(){
                     alert(xhr.status + " " + xhr.statusText)
                 }
             });
-        } else {
-            Highcharts.chart('container', commentSentimentChart)
-        }
+        // } else {
+        //     Highcharts.chart('container', commentSentimentChart)
+        // }
     });
 
     var targetSentimentChart = {
@@ -160,9 +216,6 @@ $(document).ready(function(){
         series: []
     };
 
-    var phoneEle = $("#source_phone");
-    var phone = phoneEle[0].innerText;
-
     var ajaxLoadTargetSentimentStatistic = function (phone) {
         $.ajax({
             type:'post',
@@ -179,11 +232,5 @@ $(document).ready(function(){
             }
         });
     };
-
-    $("a.name").click(function() {
-        // alert(this.title);
-        ajaxLoadTargetSentimentStatistic(this.title);
-    });
-
 
 });

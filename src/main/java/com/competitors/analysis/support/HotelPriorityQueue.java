@@ -1,4 +1,4 @@
-package com.competitors.service.support;
+package com.competitors.analysis.support;
 
 import com.competitors.entity.HotelStandard;
 
@@ -23,7 +23,7 @@ public class HotelPriorityQueue {
         List<HotelStandard> result = new ArrayList<>(max);
         HotelStandard curr;
         int num = 0;
-        while ((curr = queue.poll()) != null && num ++ < 10) {
+        while ((curr = queue.poll()) != null && num ++ < max) {
             result.add(curr);
         }
         return result;

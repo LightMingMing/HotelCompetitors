@@ -76,5 +76,5 @@ public interface HotelService {
      * @param phone 酒店电话
      * @return 酒店竞争对手集合
      */
-    List<HotelStandard> getHotelCompetitorList(String phone);
+    List<String> getHotelCompetitorList(String phone);
 }

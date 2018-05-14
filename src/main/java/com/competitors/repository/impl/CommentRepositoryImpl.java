@@ -49,11 +49,12 @@ public class CommentRepositoryImpl extends ReadRepositoryImpl<Comment> implement
 
     @Override
     public List<String> getHotelPhoneListInCommentRange(int min, int max) {
-        String sql = "select phone from (select phone, count(phone) as comment_number from " + getTableName() + " group by phone) as t where t.comment_number >= ? and t.comment_number < ?";
+        // String sql = "select phone from (select phone, count(phone) as comment_number from " + getTableName() + " group by phone) as t where t.comment_number >= ? and t.comment_number < ?";
+        String sql = "select phone from t_hotel_comment_count where number>=? and number <?";
         return template.queryForList(sql, new Object[]{min, max}, String.class);
     }
 
-/*    @Override
+    @Override
     public Integer getCommentNumber(String phone, Integer webId) {
         String sql = "select count(*) from " + getTableName() + " where phone=? ";
         Object[] params = new Object[]{phone};
@@ -63,7 +64,7 @@ public class CommentRepositoryImpl extends ReadRepositoryImpl<Comment> implement
         }
         return template.queryForObject(sql, params, Integer.class);
     }
-
+    /*
     @Override
     public List<PlatformCommentNumber> getCommentNumberForEachPlatform(String phone) {
         String sql = "select webid, count(*) from " + getTableName() + " where phone= ? group by webid";

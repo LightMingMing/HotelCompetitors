@@ -1,4 +1,4 @@
-package com.competitors.service.support;
+package com.competitors.analysis.support;
 
 import com.competitors.entity.HotelStandard;
 import com.khazix.core.support.Coordinate;

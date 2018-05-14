@@ -21,14 +21,14 @@
             <div id="container" style="min-width:400px;max-width:1150px;height:400px;margin-top:10px"></div>
         </div>
         <div class="map_side">
-            <div class="side_inner" style="height: 680px;">
+            <div class="side_inner" style="height: 716px;">
                 <div class="side_source">
                     <p class="source_name"><a class="name" title="${source.phone}">${source.name}</a></p>
                     <p class="item_phone hidden" id="source_phone">${source.phone}</p>
                 </div>
-                <div class="side_list" style="height: 650px;">
-                    <div class="side_list_box">
-                    <#list hotelList as hotel>
+                <div class="side_list" style="height: 630px;">
+                    <div class="side_list_box" id="hotel_list">
+                    <#--<#list hotelList as hotel>
                         <div class="side_list_item">
                             <div class="list_item_cont">
                                 <span class="icon_num">${hotel_index + 1}</span>
@@ -40,9 +40,13 @@
                                 <p class="item_c"><span class="item_comment_number">${commentNumberList[hotel_index]}</span>条点评</p>
                             </div>
                         </div>
-                    </#list>
+                    </#list>-->
                     </div>
                 </div>
+                <nav>
+                    <ul class="pager" id="simple_pager">
+                    </ul>
+                </nav>
             </div>
         </div>
     <#else>
