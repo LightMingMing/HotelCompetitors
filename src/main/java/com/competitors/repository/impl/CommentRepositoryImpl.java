@@ -1,7 +1,6 @@
 package com.competitors.repository.impl;
 
 import com.competitors.domain.PlatformAverageScore;
-import com.competitors.domain.PlatformCommentNumber;
 import com.competitors.entity.Comment;
 import com.competitors.repository.CommentRepository;
 import com.khazix.core.repository.ReadRepositoryImpl;

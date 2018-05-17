@@ -2,7 +2,6 @@ package com.competitors.service;
 
 import com.competitors.domain.*;
 import com.competitors.entity.HotelCompetitors;
-import com.competitors.entity.HotelStandard;
 import com.competitors.repository.CommentRepository;
 import com.competitors.repository.DayAnalysisRepository;
 import com.competitors.repository.DayAnalysisTargetRepository;
