@@ -1,12 +1,11 @@
 package com.competitors.controller;
 
+import com.competitors.domain.PlatformAverageScore;
 import com.competitors.domain.PlatformCommentNumber;
 import com.competitors.domain.SentimentDistribution;
 import com.competitors.domain.TargetSentimentDistribution;
 import com.competitors.entity.HotelStandard;
-import com.competitors.json.CommentSentimentStatisticsJ;
-import com.competitors.json.PlatformCommentStatisticsJ;
-import com.competitors.json.TargetSentimentStatisticsJ;
+import com.competitors.json.*;
 import com.competitors.repository.HotelRepository;
 import com.competitors.service.HotelService;
 import org.json.JSONArray;
@@ -129,5 +128,36 @@ public class CompetitorController {
         targetSentimentStatisticsJ.addData(targetSentimentDistributionList);
 
         return targetSentimentStatisticsJ.toJsonString();
+    }
+
+    @ResponseBody
+    @PostMapping(value = "/platformScoreStatistics", produces = "application/json; charset=utf-8")
+    public String platformScoreStatistics(@RequestBody List<String> phoneList){
+        PlatformScoreStatisticsJ scoreStatisticsJ = new PlatformScoreStatisticsJ(phoneList.size());
+        for (String phone : phoneList) {
+            HotelStandard hotel = hotelRepository.get("phone", phone);
+            String name = removeParen(hotel.getName());
+            List<PlatformAverageScore> scoreList = hotelService.getPlatformAverageScoreList(phone);
+            scoreStatisticsJ.addData(name, scoreList);
+        }
+        return scoreStatisticsJ.toJsonString();
+    }
+
+    @ResponseBody
+    @PostMapping(value = "/platformScoreSpiderStatistics", produces = "application/json; charset=utf-8")
+    public String platformScoreSpiderStatistics(@RequestBody List<String> phoneList){
+        PlatformScoreSpiderStatisticsJ scoreSpiderStatisticsJ = new PlatformScoreSpiderStatisticsJ(phoneList.size());
+        for (String phone : phoneList) {
+            HotelStandard hotel = hotelRepository.get("phone", phone);
+            String name = removeParen(hotel.getName());
+            List<PlatformAverageScore> scoreList = hotelService.getPlatformAverageScoreList(phone);
+            scoreSpiderStatisticsJ.addData(name, scoreList);
+        }
+        return scoreSpiderStatisticsJ.toJsonString();
+    }
+
+    private String removeParen(String name) {
+        int left;
+        return (left = name.indexOf('(')) > 0 ? name.substring(0, left) : name;
     }
 }

@@ -7,6 +7,7 @@ import com.khazix.core.repository.ReadRepositoryImpl;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -37,13 +38,38 @@ public class CommentRepositoryImpl extends ReadRepositoryImpl<Comment> implement
         if (webId == null || webId < 0)
             throw new RuntimeException("平台ID不存在");
         String sql = "select webid, ifnull(round(sum(grade)/count(*), 2), 0) avgScore from " + getTableName() + " where phone=? and comment_time>=? and comment_time<=? and webId=?";
-        return template.queryForObject(sql, new Object[] {phone, beginDate, endDate, webId}, platfromAverageScoreRowMapper);
+        List<Object> params = new ArrayList<>();
+        params.add(phone);
+        if (beginDate != null) {
+            params.add(beginDate);
+            sql += " and comment_time>=? ";
+        }
+        if (endDate != null) {
+            params.add(endDate);
+            sql += " and comment_time<=? ";
+        }
+        params.add(webId);
+        sql += " and webId=?";
+
+
+        return template.queryForObject(sql, params.toArray(), platfromAverageScoreRowMapper);
     }
 
     @Override
     public List<PlatformAverageScore> getPlatformAverageScoreList(String phone, Date beginDate, Date endDate) {
-        String sql = "select webid, ifnull(round(sum(grade)/count(*), 2), 0) avgScore from " + getTableName() + " where phone=? and comment_time>=? and comment_time<=? group by webid";
-        return template.query(sql, new Object[] {phone, beginDate, endDate}, platfromAverageScoreRowMapper);
+        String sql = "select webid, ifnull(round(sum(grade)/count(*), 2), 0) avgScore from " + getTableName() + " where phone=?";
+        List<Object> params = new ArrayList<>();
+        params.add(phone);
+        if (beginDate != null) {
+            params.add(beginDate);
+            sql += " and comment_time>=? ";
+        }
+        if (endDate != null) {
+            params.add(endDate);
+            sql += " and comment_time<=? ";
+        }
+        sql += " group by webid";
+        return template.query(sql, params.toArray(), platfromAverageScoreRowMapper);
     }
 
     @Override

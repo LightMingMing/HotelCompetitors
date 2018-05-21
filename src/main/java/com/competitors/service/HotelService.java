@@ -20,6 +20,10 @@ public interface HotelService {
      */
     List<PlatformAverageScore> getPlatformAverageScoreList(String phone, Date beginDate, Date endDate);
 
+    default List<PlatformAverageScore> getPlatformAverageScoreList(String phone) {
+        return getPlatformAverageScoreList(phone, null, null);
+    }
+
     /**
      * 评论数量
      * @see com.competitors.repository.DayAnalysisRepository

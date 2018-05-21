@@ -4,6 +4,7 @@
     <@title "竞争对手分析"/>
     <link href="/static/css/competitor.css" type="text/css" rel="stylesheet"/>
     <script src="/static/js/highcharts.js"></script>
+    <script src="/static/js/highcharts-more.js"></script>
     <script src="/static/js/charts.js"></script>
 </head>
 <body>
@@ -11,11 +12,17 @@
     <#if source??>
         <div class="compare-container">
             <div class="compare-inner row">
-                <div class="compare-select col-md-3"></div>
-                <div class="compare-list col-md-6">
+                <div class="compare-list col-md-4 col-md-offset-2">
                     <a href="#" class="btn compare-item" id="platformComment">平台评论数量</a>
-                    <a href="#" class="btn compare-item-1" id="commentSentiment">评论情感分布</a>
+                    <a href="#" class="btn compare-item-1" id="platformScore">平台平均得分</a>
+                    <a href="#" class="btn compare-item-2" id="commentSentiment">评论情感分布</a>
                     <#--<a href="#" class="btn compare-item-2" id="commentTargetSentiment">评论目标情感分布</a>-->
+                </div>
+                <div class="col-md-2">
+                    <select class="form-control" id="compare_option">
+                        <option value="1">评论目标情感分布</option>
+                        <option value="2">平台得分对比</option>
+                    </select>
                 </div>
             </div>
             <div id="container" style="min-width:400px;max-width:1150px;height:400px;margin-top:10px"></div>
